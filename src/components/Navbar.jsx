@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { IKImage } from 'imagekitio-react';
+import Image from './Image';
 
 const Navbar = () => {
 
@@ -8,10 +10,12 @@ const Navbar = () => {
     <div className='w-full h-16 md:h-20 flex items-center justify-between relative z-30'>
       {/* Logo */}
       <div className='flex items-center gap-4 text-2xl font-bold z-10'>
-        <img 
-          src="/logo.png" 
-          alt="Logo"
+        <Image 
+          src="logo.png" 
           className='w-8 h-8'
+          alt="Logo"
+          w={32}
+          h={32}
         />
         <span>React Blog</span>
       </div>
