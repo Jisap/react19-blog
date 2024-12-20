@@ -8,3 +8,7 @@ body {
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
 }
+
+.animated-button{
+  animation-duration: 1000ms;
+}
