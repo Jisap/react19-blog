@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import MainCategories from '../components/MainCategories'
 
 const Homepage = () => {
   return (
@@ -19,7 +20,7 @@ const Homepage = () => {
           </h1>
           <p className='mt-8 text-md md:text-xl'>
             Lorem ipsum dolor sit amet consectetur adipiscing elit elementum nec, 
-            per dignissim consequat phasellus 
+            per dignissim.
           </p>
         </div>
         <Link to="write" className='relative hidden md:block'>
@@ -59,6 +60,9 @@ const Homepage = () => {
           </button>
         </Link>
       </div>
+
+      {/* Categories */}
+      <MainCategories />
     </div>
   )
 }
