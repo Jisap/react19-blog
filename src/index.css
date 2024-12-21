@@ -12,3 +12,22 @@ body {
 .animated-button{
   animation-duration: 1000ms;
 }
+
+::-webkit-scrollbar {
+  width: 6px; /* Ancho de la barra de desplazamiento vertical */
+  height: 6px; /* Altura de la barra de desplazamiento horizontal */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color del pulgar (la parte desplazable) */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color al pasar el mouse */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color de fondo de la pista */
+  border-radius: 10px; /* Bordes redondeados */
+}
