@@ -7,19 +7,23 @@ const SinglePostpage = () => {
       {/* detail */}
       <div className='flex gap-8'>
         <div className='lg:w-3/5 flex flex-col gap-8'>
-          <h1>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam modi eum aut.</h1>
+          <h1 className='text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold'>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam modi eum aut.
+          </h1>
           <div className='flex items-center gap-2 text-gray-400 text-sm'>
             <span>Writen by</span>
-            <Link>Jhon Doe</Link>
+            <Link className='text-blue-800'>Jhon Doe</Link>
             <span>on</span>
-            <Link>Web Design</Link>
+            <Link className='text-blue-800'>Web Design</Link>
             <span>2 days ago</span>
           </div>
+          <p className='text-gray-500 font-medium'>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit aptent auctor, quis nibh interdum. Dui in ornare conubia curabitur imperdiet odio suscipit aenean, risus himenaeos facilisis vestibulum taciti nibh dapibus. Non aptent luctus class tincidunt dignissim fringilla velit, netus condimentum orci ridiculus tristique dui porta bibendum, sem platea neque cursus faucibus suscipit.
+          </p>
         </div>
         <div className='hidden lg:block w-2/5'>
-          <Image 
+          <Image
             src="postImg.jpeg"
-
           />
         </div>
       </div>
