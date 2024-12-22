@@ -21,14 +21,35 @@ const SinglePostpage = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit aptent auctor, quis nibh interdum. Dui in ornare conubia curabitur imperdiet odio suscipit aenean, risus himenaeos facilisis vestibulum taciti nibh dapibus. Non aptent luctus class tincidunt dignissim fringilla velit, netus condimentum orci ridiculus tristique dui porta bibendum, sem platea neque cursus faucibus suscipit.
           </p>
         </div>
+
         <div className='hidden lg:block w-2/5'>
           <Image
             src="postImg.jpeg"
+            w="600"
+            className="rounded-2xl"
           />
         </div>
       </div>
+
       {/* content */}
-      <div></div>
+      <div className='flex flex-col md:flex-row gap-8'>
+        {/* text */}
+        <div className='lg:text-lg flex flex-col gap-6 text-justify'>
+          <p>
+            Cum convallis mus at rutrum imperdiet duis eleifend molestie vitae lacinia ornare mollis rhoncus, aliquam primis vehicula quis sagittis velit porttitor ut consequat cubilia tempor sapien, et habitant lobortis ullamcorper dis sem taciti feugiat mi placerat tristique commodo. Iaculis turpis odio mollis et facilisis suspendisse, at malesuada class volutpat bibendum dis mus, potenti nec praesent fringilla neque. Aliquam diam mattis neque vestibulum donec tincidunt leo posuere proin vivamus dictum aenean, nisl malesuada lectus tempus odio pulvinar eros ridiculus quisque nulla ullamcorper euismod dis, ac feugiat ut cras ultricies habitant duis pharetra morbi lacinia id.
+          </p>
+          <p>
+            Cum convallis mus at rutrum imperdiet duis eleifend molestie vitae lacinia ornare mollis rhoncus, aliquam primis vehicula quis sagittis velit porttitor ut consequat cubilia tempor sapien, et habitant lobortis ullamcorper dis sem taciti feugiat mi placerat tristique commodo. Iaculis turpis odio mollis et facilisis suspendisse, at malesuada class volutpat bibendum dis mus, potenti nec praesent fringilla neque. Aliquam diam mattis neque vestibulum donec tincidunt leo posuere proin vivamus dictum aenean, nisl malesuada lectus tempus odio pulvinar eros ridiculus quisque nulla ullamcorper euismod dis, ac feugiat ut cras ultricies habitant duis pharetra morbi lacinia id.
+          </p>
+          <p>
+            Cum convallis mus at rutrum imperdiet duis eleifend molestie vitae lacinia ornare mollis rhoncus, aliquam primis vehicula quis sagittis velit porttitor ut consequat cubilia tempor sapien, et habitant lobortis ullamcorper dis sem taciti feugiat mi placerat tristique commodo. Iaculis turpis odio mollis et facilisis suspendisse, at malesuada class volutpat bibendum dis mus, potenti nec praesent fringilla neque. Aliquam diam mattis neque vestibulum donec tincidunt leo posuere proin vivamus dictum aenean, nisl malesuada lectus tempus odio pulvinar eros ridiculus quisque nulla ullamcorper euismod dis, ac feugiat ut cras ultricies habitant duis pharetra morbi lacinia id.
+          </p>
+        </div>
+        {/* menu */}
+        <div className='px-4 h-max sticky top-8'>
+          menu
+        </div>
+      </div>
     </div>
   )
 }
