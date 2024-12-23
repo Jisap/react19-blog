@@ -1,4 +1,5 @@
 import React from 'react'
+import Comment from './Comment'
 
 const Comments = () => {
   return (
@@ -13,6 +14,7 @@ const Comments = () => {
           Send
         </button>
       </div>
+        <Comment />
     </div>
   )
 }
