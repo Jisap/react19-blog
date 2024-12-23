@@ -47,7 +47,29 @@ const SinglePostpage = () => {
         </div>
         {/* menu */}
         <div className='px-4 h-max sticky top-8'>
-          menu
+          <h1>Author</h1>
+          <div>
+            <Image 
+              src="userImg.jpeg"
+              className="w-12 h-12 rounded-full object-cover"
+              w="48"
+              h="48"
+            />
+            <Link>
+              John Doe
+            </Link>
+            <p>
+              aliquam primis vehicula quis sagittis velit
+            </p>
+            <div className='flex gap-2'>
+              <Link>
+                <Image src="facebook.svg" />
+              </Link>
+              <Link>
+                <Image src="instagram.svg" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
