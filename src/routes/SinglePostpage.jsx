@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Image from '../components/Image'
+import PostMenuAction from '../components/PostMenuAction'
 
 const SinglePostpage = () => {
   return (
@@ -48,7 +49,7 @@ const SinglePostpage = () => {
         {/* menu */}
         <div className='px-4 h-max sticky top-8'>
           <h1>Author</h1>
-          <div>
+          <div className=''>
             <Image 
               src="userImg.jpeg"
               className="w-12 h-12 rounded-full object-cover"
@@ -70,6 +71,24 @@ const SinglePostpage = () => {
               </Link>
             </div>
           </div>
+
+          <PostMenuAction />
+
+          <h1>
+            Categories
+          </h1>
+          <div className='flex flex-col gap-2 text-sm'>
+            <Link to="/" className='underline'>All</Link>
+            <Link to="/" className='underline'>Web Design</Link>
+            <Link to="/" className='underline'>Develpment</Link>
+            <Link to="/" className='underline'>Databases</Link>
+            <Link to="/" className='underline'>Search Engines</Link>
+            <Link to="/" className='underline'>Marketing</Link>
+          </div>
+
+          <h1>
+            Search
+          </h1>
         </div>
       </div>
     </div>
