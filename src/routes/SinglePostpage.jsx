@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Image from '../components/Image'
 import PostMenuAction from '../components/PostMenuAction'
 import Search from '../components/Search'
+import Comments from '../components/Comments'
 
 const SinglePostpage = () => {
   return (
@@ -34,7 +35,7 @@ const SinglePostpage = () => {
       </div>
 
       {/* content */}
-      <div className='flex flex-col md:flex-row gap-8'>
+      <div className='flex flex-col md:flex-row gap-12'>
         {/* text */}
         <div className='lg:text-lg flex flex-col gap-6 text-justify'>
           <p>
@@ -67,7 +68,7 @@ const SinglePostpage = () => {
                 w="48"
                 h="48"
               />
-              <Link>
+              <Link className='text-blue-800'>
                 John Doe
               </Link>
             </div>
@@ -104,6 +105,8 @@ const SinglePostpage = () => {
           <Search />
         </div>
       </div>
+
+      <Comments />
     </div>
   )
 }
