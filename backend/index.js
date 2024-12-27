@@ -12,6 +12,16 @@ app.use("/users", userRoute);
 app.use("/posts", postRoute);
 app.use("/comments", commentRoute);
 
+app.use((error, req, res, next) => {
+
+  res.status(error.status || 500);
+
+  res.json({
+    message: error.message || "Something went wrong",
+    status: error.status,
+    stack: error.stack
+  })
+})
 
 app.listen(3000, () => {
   connectDB()
