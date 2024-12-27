@@ -4,6 +4,11 @@ import mongoose, { Schema } from "mongoose";
 
 
 const postSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   img: {
     type: String,
   },
@@ -16,7 +21,7 @@ const postSchema = new Schema({
     required: true,
     unique: true,
   },
-  description: {
+  desc: {
     type: String,
   },
   content: {
