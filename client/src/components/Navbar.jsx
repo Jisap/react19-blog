@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { IKImage } from 'imagekitio-react';
 import Image from './Image';
-import { Link, Links } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 const Navbar = () => {
