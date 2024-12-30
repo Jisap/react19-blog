@@ -5,7 +5,11 @@ import { clerkWebhook } from '../controllers/webhook.controller.js';
 
 const router = express.Router();
 
-router.post("/clerk", bodyParser.raw({type: 'application/json'}), clerkWebhook);
+router.post(
+  "/clerk", 
+  bodyParser.raw({type: 'application/json'}), 
+  clerkWebhook
+);
 
 
 

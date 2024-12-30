@@ -1,9 +1,9 @@
 import express from 'express';
 import connectDB from './lib/connectDB.js';
-import userRoute from './routes/user.route.js';
-import postRoute from './routes/post.route.js';
-import commentRoute from './routes/comment.route.js';
-import webHookRoute from './routes/webhook.route.js';
+import userRouter from './routes/user.route.js';
+import postRouter from './routes/post.route.js';
+import commentRouter from './routes/comment.route.js';
+import webHookRouter from './routes/webhook.route.js';
 import { clerkMiddleware, requireAuth } from '@clerk/express'
 
 
@@ -26,12 +26,13 @@ const app = express();
 
 app.use(clerkMiddleware()); 
 
-app.use("/webhooks", webHookRoute);
+
+app.use("/webhooks", webHookRouter);
 app.use(express.json());
 
-app.use("/users", userRoute);
-app.use("/posts", postRoute);
-app.use("/comments", commentRoute);
+app.use("/users", userRouter);
+app.use("/posts", postRouter);
+app.use("/comments", commentRouter);
 
 app.use((error, req, res, next) => {
 

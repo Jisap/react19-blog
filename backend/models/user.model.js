@@ -4,7 +4,7 @@ import mongoose, { Schema } from "mongoose";
 
 
 const userSchema = new Schema({
-  clerkId:{
+  clerkUserId:{
     type: String,
     required: true,
     unique: true,

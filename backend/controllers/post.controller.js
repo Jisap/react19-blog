@@ -13,35 +13,16 @@ export const getPost = async(req, res) => {
   res.status(200).json(post);
 }
 
-// export const createPost = async(req, res) => {
-
-//   const clerkUserId = req.auth.userId; 
-//   console.log("clerkuserID", clerkUserId);
-//   if(!clerkUserId) {
-//     return res.status(401).json("Not authenticated");
-//   }
-//   const user = await User.findOne({ clerkId: clerkUserId })
-//   if(!user){
-//     return res.status(401).json("User not found");
-//   }
-
-//   const newPost = new Post({
-//     user: user._id,
-//     ...req.body
-//   });
-
-//   const post = await newPost.save();
-//   res.status(201).json(post);
-// }
 
 export const createPost = async (req, res) => {
+  //console.log(req.auth.userId);
   const clerkUserId = req.auth.userId;
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated");
   }
 
   try {
-    const user = await User.findOne({ clerkId: clerkUserId });
+    const user = await User.findOne({ clerkUserId: clerkUserId });
     if (!user) {
       return res.status(401).json("User not found");
     }
