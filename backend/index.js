@@ -5,9 +5,11 @@ import postRouter from './routes/post.route.js';
 import commentRouter from './routes/comment.route.js';
 import webHookRouter from './routes/webhook.route.js';
 import { clerkMiddleware, requireAuth } from '@clerk/express'
-
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors(process.env.CLIENT_URL));
 
 // Frontend
 // Cuando el usuario se loguea exitosamente, Clerk genera un JWT
