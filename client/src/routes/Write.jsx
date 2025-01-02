@@ -4,12 +4,15 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 const Write = () => {
 
   const { isLoaded, isSignedIn} = useUser();
   const [value, setValue] = useState('');
   const { getToken } = useAuth();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: async(newPost) => {
@@ -20,6 +23,10 @@ const Write = () => {
         }
       })
     },
+    onSuccess: (res) => {
+      toast.success("Post has been created");
+      navigate(`/${res.data.slug}`)
+    }
   })
 
   if(!isLoaded) {
@@ -95,7 +102,19 @@ const Write = () => {
           value={value}
           onChange={setValue}
         /> 
-        <button className='bg-blue-800 text-white font-medium rounded-xl mt-4 p-2 w-36'>Send</button>
+        <button 
+          className='bg-blue-800 text-white font-medium rounded-xl mt-4 p-2 w-36 disabled:bg-blue-400 disabled:cursor-not-allowed'
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? 'Loading...' : 'Send'}
+        </button>
+        {mutation.isError && (
+          <div className='text-red-500 text-sm'>
+            <span>
+              {mutation.error.message}
+            </span>
+          </div>
+        )}
       </form>
     </div>
   )
