@@ -15,10 +15,15 @@ export const getPost = async(req, res) => {
 
 
 export const createPost = async (req, res) => {
-  //console.log(req.auth.userId);
+ 
   const clerkUserId = req.auth.userId;
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated");
+  }
+
+  const { title, category, desc, content } = req.body;
+  if (!title || !category || !desc || !content) {
+    return res.status(400).json({ error: "Todos los campos son requeridos" });
   }
 
   try {
@@ -27,8 +32,19 @@ export const createPost = async (req, res) => {
       return res.status(401).json("User not found");
     }
 
+    let slug = title.replace(/\s+/g, '-').toLowerCase();      // Replace spaces with hyphens and convert to lowercase
+
+    let existingPost = await Post.findOne({ slug: slug });    // Check if the slug already exists
+    let counter = 2
+    while (existingPost) {                                      // If it does, append a counter to the slug
+      slug = `${slug}-${counter}`;
+      existingPost = await Post.findOne({ slug: slug });
+      counter++;
+    }
+
     const newPost = new Post({
       user: user._id,
+      slug,
       ...req.body
     });
 
