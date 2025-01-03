@@ -62,6 +62,7 @@ const Write = () => {
     const formData = new FormData(e.target);
 
     const data = {
+      img: cover.filePath || "",
       title: formData.get('title'),
       category: formData.get('category'),
       desc: formData.get('desc'),
@@ -148,6 +149,7 @@ const Write = () => {
             className='flex-1 rounded-xl bg-white shadow-md'
             value={value}
             onChange={setValue}
+            readOnly={0 < progress && progress < 100}
           /> 
         </div>
         <button 
