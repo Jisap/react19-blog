@@ -32,14 +32,19 @@ app.use(clerkMiddleware());
 app.use("/webhooks", webHookRouter);
 app.use(express.json());
 
+app.use(function (req, res, next) {                                 // Midleware que gestiona las peticiones de CORS
+  res.header("Access-Control-Allow-Origin", "*");                   // Permite que cualquier origen pueda acceder a la API
+  res.header("Access-Control-Allow-Headers",                        // define qué encabezados puede enviar el cliente en sus solicitudes.
+    "Origin, X-Requested-With, Content-Type, Accept");              // Origin: Permite que el cliente especifique el origen desde donde se envía la solicitud.
+  next();                                                           // X-Requested-With: permite solicitudes AJAX y Content-Type: permite enviar datos en formato JSON.
+});
+
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 app.use("/comments", commentRouter);
 
-app.use((error, req, res, next) => {
-
+app.use((error, req, res, next) => {                                // Control de errores si los hay
   res.status(error.status || 500);
-
   res.json({
     message: error.message || "Something went wrong",
     status: error.status,

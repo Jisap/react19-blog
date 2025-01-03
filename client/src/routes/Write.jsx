@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
@@ -6,6 +6,10 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+import Upload from '../components/Upload';
+
+
+
 
 const Write = () => {
 
@@ -13,6 +17,22 @@ const Write = () => {
   const [value, setValue] = useState('');
   const { getToken } = useAuth();
   const navigate = useNavigate();
+  const [cover, setCover] = useState();
+  const [progress, setProgress] = useState(0);
+  const [img, setImg] = useState();
+  const [video, setVideo] = useState();
+
+  useEffect(() => {
+    console.log("img desde el useEffect",img);
+    img && setValue((prev) => prev + `<p><image src="${img.url}"/></p>`);  // Si la imagen cambia se añade la imagen al texto como un <image 
+  }, [img]);
+
+  useEffect(() => {
+    video &&
+      setValue(
+        (prev) => prev + `<p><iframe class="ql-video" src="${video.url}"/></p>`
+      );
+  }, [video]);
 
   const mutation = useMutation({
     mutationFn: async(newPost) => {
@@ -62,9 +82,19 @@ const Write = () => {
         onSubmit={handleSubmit}
         className='flex flex-col gap-6 flex-1 mb-6'
       >
-        <button className='w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white'>
-          Add a cover image
-        </button>
+        <Upload 
+          type="image"
+          setProgress={setProgress}
+          setData={setCover}
+        >
+          <button 
+            type="button"
+            className='w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white'
+          >
+            Add a cover image
+          </button>
+        </Upload>
+       
         <input 
           type="text" 
           placeholder="My Awesome Story" 
@@ -96,18 +126,39 @@ const Write = () => {
           placeholder="A short description"
           className='p-4 rounded-xl bg-white shadow-md'
         />
-        <ReactQuill 
-          theme="snow" 
-          className='flex-1 rounded-xl bg-white shadow-md'
-          value={value}
-          onChange={setValue}
-        /> 
+        <div className="flex flex-1">
+          <div className="flex flex-col gap-2 mr-2">
+            <Upload                                       // Sube la imagen y establece el state de img -> useEffect -> setValue -> <ReactQuill />
+              type="image" 
+              setProgress={setProgress} 
+              setData={setImg}
+            >
+              🌆
+            </Upload>
+            <Upload 
+              type="video" 
+              setProgress={setProgress} 
+              setData={setVideo}
+            >
+              ▶️
+            </Upload>
+          </div>
+          <ReactQuill 
+            theme="snow" 
+            className='flex-1 rounded-xl bg-white shadow-md'
+            value={value}
+            onChange={setValue}
+          /> 
+        </div>
         <button 
           className='bg-blue-800 text-white font-medium rounded-xl mt-4 p-2 w-36 disabled:bg-blue-400 disabled:cursor-not-allowed'
-          disabled={mutation.isPending}
+          disabled={mutation.isPending || (0 < progress && progress < 100)}
         >
           {mutation.isPending ? 'Loading...' : 'Send'}
         </button>
+
+        {"Progress: " + progress + "%"}
+
         {mutation.isError && (
           <div className='text-red-500 text-sm'>
             <span>
