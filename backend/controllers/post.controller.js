@@ -5,8 +5,18 @@ import User from '../models/user.model.js';
 
 
 export const getPosts = async(req, res) => {
-  const posts = await Post.find();
-  res.status(200).json(posts);
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 2;
+
+  const posts = await Post.find()
+    .limit(limit)                                                    // El limit es para limitar el numero de elementos devueltos
+    .skip((page - 1) * limit)                                        // El skip es para saltar los elementos anteriores a la página actual
+  
+  const totalPosts = await Post.countDocuments();
+  const hasMore = page * limit < totalPosts;                         // Si la página actual por el limite es menor que el total de posts, hay más posts
+
+  res.status(200).json({ posts, hasMore });                          // Devuelve los posts y si hay más posts o no
 }
 
 export const getPost = async(req, res) => {
@@ -37,7 +47,7 @@ export const createPost = async (req, res) => {
 
     let existingPost = await Post.findOne({ slug: slug });    // Check if the slug already exists
     let counter = 2
-    while (existingPost) {                                      // If it does, append a counter to the slug
+    while (existingPost) {                                    // If it does, append a counter to the slug
       slug = `${slug}-${counter}`;
       existingPost = await Post.findOne({ slug: slug });
       counter++;

@@ -1,39 +1,38 @@
 import React from 'react'
 import Image from './Image'
 import { Link } from 'react-router-dom'
+import { format } from "timeago.js";
 
-const PostListItem = () => {
+const PostListItem = ({ post }) => {
   return (
-    <div className='flex flex-col xl:flex-row gap-8'>
-      <div className='md:hidden xl:block xl:w-1/3'>
-        <Image 
-          src="postImg.jpeg"
-          className="rounded-2xl object-cover"
-          w="735"
-        />
-      </div>
+    <div className='flex flex-col xl:flex-row gap-8 mb-12'>
+      {/* image */}
+      {post.img &&(
+        <div className='md:hidden xl:block xl:w-1/3'>
+          <Image 
+            src={post.img}
+            className="rounded-2xl object-cover"
+            w="735"
+          />
+        </div>
+      )}
+      {/* details */}
       <div className='flex flex-col gap-4 xl:w-2/3'>
-        <Link to="/test" className='text-4xl font-semibold'>
-          Lorem ipsum dolor sit amet consectetur adipiscing elit
+        <Link to={`/${post.slug}`} className='text-4xl font-semibold'>
+          {post.title}
         </Link>
         <div className='flex items-center gap-2 text-gray-400 text-sm className="text-blue-800"'>
           <span>Written by</span>
-          <Link className="text-blue-800">Jhon Doe</Link>
+          <Link className="text-blue-800" to={`/posts?author=${post.user.username}`}>{post.user.username}</Link>
           <span>on</span>
-          <Link className="text-blue-800">Web Design</Link>
-          <span> 2 days ago</span>
+          <Link className="text-blue-800">{post.category}</Link>
+          <span>{format(post.createdAt)}</span>
         </div>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. 
-          Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.
-          Praesent libero. Sed cursus ante dapibus
+          {post.desc}
         </p>
-        <Link 
-          to="/test" 
-          className='underline text-blue-800 text-sm'
-        >
-          Read more
+        <Link to={`/${post.slug}`} className="underline text-blue-800 text-sm">
+          Read More
         </Link>
       </div>
     </div>
