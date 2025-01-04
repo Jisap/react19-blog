@@ -62,7 +62,7 @@ const Write = () => {
     const formData = new FormData(e.target);
 
     const data = {
-      img: cover.filePath || "",
+      img: cover ? cover.filePath : "",
       title: formData.get('title'),
       category: formData.get('category'),
       desc: formData.get('desc'),
