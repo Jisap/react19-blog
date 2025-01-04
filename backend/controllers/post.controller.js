@@ -10,6 +10,7 @@ export const getPosts = async(req, res) => {
   const limit = parseInt(req.query.limit) || 2;
 
   const posts = await Post.find()
+    .populate('user', 'username')                                    // Se hace un populate para traer el username del usuario
     .limit(limit)                                                    // El limit es para limitar el numero de elementos devueltos
     .skip((page - 1) * limit)                                        // El skip es para saltar los elementos anteriores a la página actual
   
