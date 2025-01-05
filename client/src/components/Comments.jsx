@@ -32,7 +32,7 @@ const Comments = ({ postId }) => {
         }
       })
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["comments", postId] });
     },
     onError: (error) => {

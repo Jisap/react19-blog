@@ -19,7 +19,7 @@ export const addComment = async(req, res) => {
   }
 
   const user = await User.findOne({clerkUserId})
-
+console.log("user", user);
   const newComment = new Comment({
     ...req.body,
     user: user._id,
