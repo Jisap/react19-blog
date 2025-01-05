@@ -32,7 +32,7 @@ const Comments = ({ postId }) => {
         }
       })
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", postId] });
     },
     onError: (error) => {
@@ -41,8 +41,7 @@ const Comments = ({ postId }) => {
     }
   });
 
-  if (isPending) return "loading...";
-  if (error) return "Something went wrong!" + error.message;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,13 +71,35 @@ const Comments = ({ postId }) => {
         </button>
       </form>
 
-      {data.map((comment) => (
-        <Comment 
-          key={comment._id} 
-          comment={comment} 
-          postId={postId} 
-        />
-      ))}
+      {isPending 
+        ? "Loading..."
+        : error
+          ? "Error Loading comments"
+          : 
+            <>
+              {
+                mutation.isPending && (
+                  <Comment comment={{
+                    desc: `${mutation.variables.desc} (Sending...)`,
+                    createdAt:new Date(),
+                    user: {
+                      img: user.imageUrl, 
+                      username: user.username,
+                    }
+                  }}/>
+                )
+              }
+
+              {
+                data.map((comment) => (
+                  <Comment
+                    key={comment._id}
+                    comment={comment}
+                    postId={postId}
+                  />
+                ))}
+            </>
+      }
     </div>
   )
 }

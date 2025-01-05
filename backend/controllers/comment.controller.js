@@ -19,7 +19,7 @@ export const addComment = async(req, res) => {
   }
 
   const user = await User.findOne({clerkUserId})
-console.log("user", user);
+
   const newComment = new Comment({
     ...req.body,
     user: user._id,
@@ -27,7 +27,11 @@ console.log("user", user);
   })
 
   const savedComment = await newComment.save()
-  res.status(201).json(savedComment);
+
+  setTimeout(() => {
+    res.status(201).json(savedComment);
+  }, 3000 )
+
 }
 
 export const deleteComment = async(req, res) => {

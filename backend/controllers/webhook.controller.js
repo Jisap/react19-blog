@@ -41,9 +41,8 @@ export const clerkWebhook = async(req, res) => {
       clerkUserId: evt.data.id,
       username: evt.data.username || evt.data.email_addresses[0].email_address.split('@')[0] + '_' + evt.data.id,
       email: evt.data.email_addresses[0].email_address,
-      img: evt.data.profile_img_url
+      img: evt.data.profile_image_url
     })
-
     try {
       const userSaved = await newUser.save();
       console.log("userSaved", userSaved);

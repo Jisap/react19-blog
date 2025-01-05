@@ -1,17 +1,18 @@
 import React from 'react'
-import Image from './Image'
+//import Image from './Image'
 import { format } from 'timeago.js';
 
 const Comment = ({ comment }) => {
- 
+
   return (
     <div className='p-4 bg-slate-50 rounded-xl mb-0'>
       <div className='flex items-center gap-4'>
         {comment.user.img && (
-          <Image 
+          <img 
             src={comment.user.img}
             className="w-10 h-10 rounded-full object-cover"
-            w="40"
+            alt="User Avatar"
+            
           />
         )}
         <span className='font-medium'>{comment.user.username}</span>
