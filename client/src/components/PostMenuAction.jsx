@@ -134,7 +134,7 @@ const PostMenuAction = ({ post }) => {
           </svg>
           <span>Delete this post</span>
           
-          {deleteMutation.isPending && <span className="text-xs">Deleting...</span>}
+          {deleteMutation.isPending && <span className="text-xs">(in progress</span>}
 
         </div>
       ))}
