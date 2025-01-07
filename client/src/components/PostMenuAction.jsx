@@ -102,10 +102,18 @@ const PostMenuAction = ({ post }) => {
                     d="M12 4C10.3 4 9 5.3 9 7v34l15-9 15 9V7c0-1.7-1.3-3-3-3H12z"
                     stroke="black"
                     strokeWidth="2"
-                    fill={isSaved ? "black" : "none"} // Condición de visualización
+                    fill={saveMutation.isPending // Si se esta guardando el post
+                      ? isSaved                  // y el post ya está guardado -> no se rellena el botón
+                        ? "none"                 // y el post no está guardado -> se rellena el botón
+                        : "black"
+                      : isSaved                  // Si no se esta guardando el post y el post está guardado -> se rellena el botón
+                        ? "black"                // se rellena el botón con black
+                        : "none"                 // si no se esta guardando el post y el post no está guardado -> no se rellena el botón
+                    } // Condición de visualización
                   />
                 </svg>
                 <span>Save this post</span>
+                {saveMutation.isPending && <span className="text-xs">(in progress)</span>}
               </div>       
           )
       }
