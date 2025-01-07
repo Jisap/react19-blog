@@ -11,8 +11,7 @@ const Comment = ({ comment }) => {
           <img 
             src={comment.user.img}
             className="w-10 h-10 rounded-full object-cover"
-            alt="User Avatar"
-            
+            alt="User Avatar" 
           />
         )}
         <span className='font-medium'>{comment.user.username}</span>

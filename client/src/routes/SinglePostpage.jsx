@@ -8,8 +8,8 @@ import { format } from "timeago.js";
 import axios from 'axios'
 
 const fetchPost = async (slug) => {
-  const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${slug}`);
-  return res.data;
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${slug}`); // petición a la API /posts/:slug
+  return res.data; // devuelve un post
 };
 
 
@@ -18,7 +18,7 @@ const SinglePostpage = () => {
   const { slug } = useParams();
 
   const { isPending, error, data } = useQuery({
-    queryKey: ["post", slug], // petición a la API /posts/:slug
+    queryKey: ["post", slug], 
     queryFn: () => fetchPost(slug),
   });
 
@@ -110,7 +110,7 @@ const SinglePostpage = () => {
             </div>
           </div>
 
-          <PostMenuAction />
+          <PostMenuAction post={data}/>
 
           <h1 className='mt-8 mb-4 text-sm font-medium'>
             Categories
