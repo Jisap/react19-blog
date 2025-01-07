@@ -1,4 +1,6 @@
 import { useAuth, useUser } from "@clerk/clerk-react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 
 const PostMenuAction = ({ post }) => {
@@ -6,27 +8,49 @@ const PostMenuAction = ({ post }) => {
   const { user } = useUser();
   const { getToken } = useAuth();
 
+  const { isPending, error, data: savedPosts } = useQuery({ // Obtenemos los post guardados por un usuario
+    queryKey: ["savedPosts"],
+    queryFn: async() => {
+      const token = await getToken()
+      return await axios.get(`${import.meta.env.VITE_API_URL}/users/saved`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+    },
+  });
+
+  const isSaved = savedPosts?.data?.some(post => post.id === post._id) || false; // Si obtenemos un registro coincidente con el post -> true || false
+
+
   return (
     <div>
       <h1 className='mt-8 mb-4 text-sm font-medium'>
         Actions
       </h1>
-      
-      <div className="flex items-center gap-2 py-2 text-sm cursor-pointer">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 48 48"
-          width="20px"
-          height="20px"
-        >
-          <path
-            d="M12 4C10.3 4 9 5.3 9 7v34l15-9 15 9V7c0-1.7-1.3-3-3-3H12z"
-            stroke="black"
-            strokeWidth="2"
-          />
-        </svg>
-        <span>Save this post</span>
-      </div>
+
+      {isPending 
+        ? "Loading..."
+        : error ? "Saved post fetching failed!"
+          : ( 
+              <div className="flex items-center gap-2 py-2 text-sm cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 48 48"
+                  width="20px"
+                  height="20px"
+                >
+                  <path
+                    d="M12 4C10.3 4 9 5.3 9 7v34l15-9 15 9V7c0-1.7-1.3-3-3-3H12z"
+                    stroke="black"
+                    strokeWidth="2"
+                    fill={isSaved ? "black" : "none"} // Condición de visualización
+                  />
+                </svg>
+                <span>Save this post</span>
+              </div>       
+          )
+      }
 
       {user && (post.user.username === user.username && (
         <div className="flex items-center gap-2 py-2 text-sm cursor-pointer">
