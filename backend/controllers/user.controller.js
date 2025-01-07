@@ -14,13 +14,14 @@ export const getUserSavedPosts = async (req, res) => {
 
 export const savePost = async (req, res) => {
   const clerkUserId = req.auth.userId
+  const postId = req.body.postId
+  
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated")
   }
 
-  const user = await userModel.findOne({ clerkUserId })
+  const user = await User.findOne({ clerkUserId })
   
-  const postId = req.body.postId
 
   const isSaved = user.savedPosts.some(post => post.id === postId)      // Verificamos si el post ya está guardado
   if(!isSaved) {                                                        // Si no está guardado, lo añadimos
