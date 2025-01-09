@@ -173,7 +173,10 @@ const PostMenuAction = ({ post }) => {
               }
             />
           </svg>
-          <span>Feature this post</span>
+          <span>Feature</span>
+          {featureMutation.isPending && (
+            <span className="text-xs">(in progress)</span>
+          )}
         </div>
       )}
 
