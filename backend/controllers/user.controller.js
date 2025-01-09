@@ -24,7 +24,7 @@ export const savePost = async (req, res) => {
   const user = await User.findOne({ clerkUserId })
   
 
-  const isSaved = user.savedPosts.some(post => post.id === postId)      // Verificamos si el post ya está guardado
+  const isSaved = user.savedPosts.some(p => p === postId)               // Verificamos si el post ya está guardado
   if(!isSaved) {                                                        // Si no está guardado, lo añadimos
     await User.findByIdAndUpdate( user._id, {
       $push: { savedPosts: postId }

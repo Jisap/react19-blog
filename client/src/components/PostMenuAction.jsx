@@ -80,6 +80,34 @@ const PostMenuAction = ({ post }) => {
     saveMutation.mutate();
   };
 
+  const featureMutation = useMutation({
+    mutationFn: async () => {
+      const token = await getToken();
+      return axios.patch(
+        `${import.meta.env.VITE_API_URL}/posts/feature`,
+        {
+          postId: post._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["post", post.slug] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data);
+    },
+  });
+
+  const handleFeature = () => {
+    featureMutation.mutate();
+  };
+
+
   return (
     <div>
       <h1 className='mt-8 mb-4 text-sm font-medium'>
@@ -118,6 +146,36 @@ const PostMenuAction = ({ post }) => {
               </div>       
           )
       }
+
+      {isAdmin && (
+        <div
+          onClick={handleFeature} 
+          className="flex items-center gap-2 py-2 text-sm cursor-pointer"
+        >
+          <svg
+            xmlns="hhtp://www.w3.org/2000/svg"
+            viewBox="0 0 48 48"
+            width="20px"
+            height="20px"
+          >
+            <path 
+              d="M24 2L29.39 16.26L44 18.18L33 29.24L35.82 44L24 37L12.18 44L15 29.24L4 18.18L18.61 16.26L24 2Z"
+              stroke="black"
+              strokeWidth="2"
+              fill={
+                featureMutation.isPending  // Si se esta haciendo la petición de cambio de estado
+                  ? post.isFeatured          // Si el estado actual es featured y se presiona el boton
+                    ? "none"                    // no se rellena el color del svg
+                    : "black"                   // si el estado actual es not featured se rellena de color negro
+                  : post.isFeatured          // Si el estado actual es no featured y se presiona el boton
+                    ? "black"                   // se rellena de color negro
+                    : "none"                    // si el estado actual es not features no se rellena de color el svg
+              }
+            />
+          </svg>
+          <span>Feature this post</span>
+        </div>
+      )}
 
       {user && (post.user.username === user.username || isAdmin) && (
         <div 
