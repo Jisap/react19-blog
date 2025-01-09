@@ -23,6 +23,7 @@ const PostMenuAction = ({ post }) => {
     },
   });
 
+  const isAdmin = user?.publicMetadata?.role === "admin" || false
   const isSaved = savedPosts?.data?.some(post => post.id === post._id) || false; // Si obtenemos un registro coincidente con el post -> true || false -> style button
 
   const deleteMutation = useMutation({
@@ -118,7 +119,7 @@ const PostMenuAction = ({ post }) => {
           )
       }
 
-      {user && (post.user.username === user.username && (
+      {user && (post.user.username === user.username || isAdmin) && (
         <div 
           onClick={handleDelete}
           className="flex items-center gap-2 py-2 text-sm cursor-pointer"
@@ -134,10 +135,12 @@ const PostMenuAction = ({ post }) => {
           </svg>
           <span>Delete this post</span>
           
-          {deleteMutation.isPending && <span className="text-xs">(in progress</span>}
+          {deleteMutation.isPending && (
+            <span className="text-xs">(in progress)</span>
+          )}
 
         </div>
-      ))}
+      )}
     </div>
   )
 }

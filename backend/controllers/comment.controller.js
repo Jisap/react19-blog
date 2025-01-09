@@ -35,12 +35,18 @@ export const addComment = async(req, res) => {
 }
 
 export const deleteComment = async(req, res) => {
-  const clerkUserId = req.auth.clerkUserId
+  const clerkUserId = req.auth.userId
   const id = req.params.id  // Id del comentario a eliminar
   if (!clerkUserId) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
+
+   const role = req.auth.sessionClaims?.metadata?.role || "user"
+    if(role === "admin"){
+      await Comment.findByIdAndDelete(req.params.id);
+      return res.status(200).json("Comment has been deleted");
+    }
 
   const user = await User.findOne({ clerkUserId })
 
