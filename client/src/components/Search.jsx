@@ -1,9 +1,26 @@
-
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 
 import React from 'react'
 
 const Search = () => {
+
+  const location = useLocation();                                                // Obtiene información sobre la ubicación actual del usuario (path y parámetros de búsqueda).
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();                     // Obtiene los parámetros de búsqueda del usuario.
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      const query = e.target.value;                                              // Obtiene el texto ingresado en el campo.
+      if (location.pathname === "/posts") {                                      // Si ya estamos en "/posts",
+        setSearchParams({ ...Object.fromEntries(searchParams), search: query }); // solo actualizamos los parámetros de búsqueda.
+      } else {
+        navigate(`/posts?search=${query}`);                                      // Si estamos en otra ruta, redirigimos a "/posts" con el nuevo parámetro de búsqueda. 
+      }
+    }
+  };
+
+
   return (
     <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2">
       <svg
@@ -20,7 +37,8 @@ const Search = () => {
       <input
         type="text"
         placeholder="search a post..."
-        className="bg-transparent"
+        className="bg-transparent focus:outline-none focus:ring-0"
+        onKeyDown={handleKeyPress}
       />
     </div>
   )
