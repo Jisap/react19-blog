@@ -21,7 +21,7 @@ const SinglePostpage = () => {
     queryKey: ["post", slug], 
     queryFn: () => fetchPost(slug),
   });
-console.log("data.img", data);
+
   if (isPending) return "loading...";
   if (error) return "Something went wrong!" + error.message;
   if (!data) return "Post not found!";

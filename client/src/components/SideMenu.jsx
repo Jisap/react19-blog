@@ -5,7 +5,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 const SideMenu = () => {
 
   // Cuando los parámetros de búsqueda en la URL cambian, React Router detecta este cambio 
-  // y re-renderiza los componentes que dependen de estos parámetros.
+  // y re-renderiza los componentes que dependen de estos parámetros -> refetch de la query en <PostList/> con los nuevos params 
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -86,12 +86,18 @@ const SideMenu = () => {
         Categories
       </h1>
       <div className='flex flex-col gap-2 text-sm'>
-        <Link className='underline' to="/posts" onClick={() => handleCategoryChange("general")}>All</Link>
+        {/* <Link className='underline' to="/posts" onClick={() => handleCategoryChange("general")}>All</Link>
         <Link className='underline' to="/posts?cat=web-design" onClick={() => handleCategoryChange("web-design")}>Web Design</Link>
         <Link className='underline' to="/posts?cat=development" onClick={() => handleCategoryChange("development")}>Development</Link>
         <Link className='underline' to="/posts?cat=databases" onClick={() => handleCategoryChange("databases")}>Databases</Link>
         <Link className='underline' to="/posts?cat=seo" onClick={() => handleCategoryChange("seo")}>Search Engines</Link>
-        <Link className='underline' to="/posts?cat=marketing" onClick={() => handleCategoryChange("marketing")}>Marketing</Link>
+        <Link className='underline' to="/posts?cat=marketing" onClick={() => handleCategoryChange("marketing")}>Marketing</Link> */}
+        <span className='underline cursor-pointer' onClick={() => handleCategoryChange("general")}>All</span>
+        <span className='underline cursor-pointer' onClick={() => handleCategoryChange("web-design")}>Web Design</span>
+        <span className='underline cursor-pointer' onClick={() => handleCategoryChange("development")}>Development</span>
+        <span className='underline cursor-pointer' onClick={() => handleCategoryChange("databases")}>Databases</span>
+        <span className='underline cursor-pointer' onClick={() => handleCategoryChange("seo")}>Search Engines</span>
+        <span className='underline cursor-pointer' onClick={() => handleCategoryChange("marketing")}>Marketing</span>
       </div>
     </div>
   )

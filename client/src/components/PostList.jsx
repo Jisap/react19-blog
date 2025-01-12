@@ -48,7 +48,7 @@ const PostList = () => {
   const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
 
 
-  console.log(data);
+
   return (
     <InfiniteScroll
       dataLength={allPosts.length}
